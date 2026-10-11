@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#050812">
+<meta name="description" content="ORBIT — tecnologia compacta para organizar seu tempo. Powered by LiquidOS.">
+<title>ORBIT — Seu dia. Em órbita.</title>
+<style>
+:root{color-scheme:dark;--bg:#050812;--bg2:#080e1b;--panel:#0c1424;--line:rgba(168,198,255,.15);--text:#f5f8ff;--muted:#9aa9c1;--blue:#6daeff;--cyan:#75e5ff;--glow:rgba(67,139,255,.22);--radius:24px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;background:radial-gradient(ellipse at 70% 0%,#112343 0,transparent 36%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5;overflow-x:hidden}body[data-theme="ice"]{--bg:#07101c;--bg2:#0b1b2a;--panel:#102236;--blue:#9bd4ff;--cyan:#b0f5ff;--glow:rgba(84,195,255,.2)}body[data-theme="violet"]{--blue:#b4a0ff;--cyan:#e0caff;--glow:rgba(137,93,255,.22)}a{color:inherit;text-decoration:none}button,input{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}.wrap{width:min(1160px,calc(100% - 44px));margin:auto}.eyebrow{font-size:.75rem;letter-spacing:.19em;text-transform:uppercase;color:var(--cyan);font-weight:700}.muted{color:var(--muted)}.section{padding:112px 0;position:relative}.section-head{max-width:690px;margin-bottom:44px}.section-head h2{font-size:clamp(2.2rem,5vw,4.2rem);letter-spacing:-.055em;line-height:1.04;margin:14px 0}.section-head p{color:var(--muted);font-size:1.06rem;max-width:590px}.topbar{height:76px;position:sticky;top:0;z-index:50;background:rgba(5,8,18,.76);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.07)}.nav{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:10px;font-size:1.1rem;letter-spacing:.28em;font-weight:800}.brand svg{width:30px;height:30px}.brand small{display:block;font-size:.55rem;letter-spacing:.12em;color:var(--muted);font-weight:500}.navlinks{display:flex;gap:28px;align-items:center;color:#bdc8da;font-size:.88rem}.navlinks a:hover{color:white}.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 18px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.035);color:var(--text);font-weight:650;transition:transform .2s,border-color .2s,background .2s}.btn:hover{transform:translateY(-2px);border-color:rgba(117,229,255,.55)}.btn.primary{background:linear-gradient(120deg,#a9d5ff,#66aaff 60%,#8be7ff);color:#04101e;border:0;box-shadow:0 8px 30px var(--glow)}.menu-btn{display:none;background:none;border:1px solid var(--line);color:white;border-radius:12px;padding:8px 11px}.hero{min-height:calc(100svh - 76px);display:grid;align-items:center;padding:70px 0 86px;position:relative;isolation:isolate}.hero:before{content:"";position:absolute;z-index:-1;width:650px;height:650px;right:-80px;top:0;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 67%);filter:blur(15px)}.hero-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:36px}.hero h1{font-size:clamp(3.5rem,8vw,7.2rem);line-height:.91;letter-spacing:-.075em;margin:22px 0}.hero h1 span{background:linear-gradient(100deg,#fff 12%,#9ccaff 55%,#69e5ff);-webkit-background-clip:text;background-clip:text;color:transparent}.hero-copy{font-size:1.1rem;color:#aab8cd;max-width:490px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.powered{margin-top:26px;font-size:.78rem;letter-spacing:.1em;color:#7386a4}.powered b{color:#b8d8ff}
+.development-status{display:flex;align-items:flex-start;gap:10px;margin-top:18px;padding:12px 14px;max-width:360px;border:1px solid rgba(117,229,255,.2);border-radius:14px;background:rgba(9,20,36,.62);color:#c6d7ed;font-size:.82rem;letter-spacing:0}
+.development-status strong{display:block;font-size:.82rem;font-weight:700;color:#dceeff}
+.development-status small{display:block;margin-top:3px;color:#91a4bf;font-size:.76rem}
+.status-dot{width:8px;height:8px;flex:0 0 8px;margin-top:5px;border-radius:50%;background:#8bc7ff;box-shadow:0 0 12px rgba(117,229,255,.65)}
+@media(max-width:850px){.development-status{margin-left:auto;margin-right:auto;text-align:left}}
+.device-stage{min-height:500px;display:grid;place-items:center;position:relative;perspective:1100px}.orbit-ring{position:absolute;width:min(100%,470px);aspect-ratio:1;border:1px solid rgba(114,180,255,.24);border-radius:50%;transform:rotateX(66deg) rotateZ(-24deg);box-shadow:0 0 60px var(--glow),inset 0 0 40px rgba(65,130,255,.05)}.orbit-ring:before,.orbit-ring:after{content:"";position:absolute;border:1px solid rgba(111,220,255,.16);border-radius:50%;inset:12% -12%;transform:rotate(35deg)}.orbit-ring:after{inset:28% -3%;transform:rotate(-48deg)}.satellite{position:absolute;width:10px;height:10px;background:var(--cyan);border-radius:50%;box-shadow:0 0 20px var(--cyan);top:20%;right:18%}.device{width:228px;height:410px;border-radius:34px;padding:10px;background:linear-gradient(135deg,#718094,#111a28 18%,#03060d 60%,#53657b);border:1px solid #66758b;box-shadow:22px 32px 65px #000,0 0 55px var(--glow);transform:rotateY(-17deg) rotateZ(-7deg);position:relative;z-index:2;animation:float 7s ease-in-out infinite}.device:before{content:"";position:absolute;top:100px;left:-4px;width:3px;height:50px;background:#8a9aad;border-radius:4px}.device-screen{height:100%;border-radius:25px;background:radial-gradient(ellipse at 50% 0%,#18385c,#07111f 55%,#03070d);border:1px solid rgba(255,255,255,.16);padding:20px 15px;display:flex;flex-direction:column;overflow:hidden}.screen-top{display:flex;justify-content:space-between;font-size:.56rem;color:#a8c4e9}.screen-logo{margin:18px auto 5px;width:38px;height:38px}.screen-time{text-align:center;font-size:2.6rem;letter-spacing:-.07em;font-weight:300;margin-top:12px}.screen-date{text-align:center;font-size:.6rem;color:#a2b4cc}.screen-widget{margin-top:22px;padding:12px;border-radius:13px;border:1px solid rgba(137,191,255,.19);background:rgba(116,174,255,.07)}.screen-widget small{font-size:.55rem;color:#92b6e7}.screen-widget p{font-size:.72rem;margin:5px 0 0}.screen-task{height:5px;background:#1e3048;border-radius:10px;margin-top:8px}.screen-task i{display:block;width:68%;height:100%;background:linear-gradient(90deg,#6daeff,#75e5ff);border-radius:10px}.device-caption{position:absolute;bottom:8px;text-align:center;font-size:.72rem;letter-spacing:.16em;color:#8298b7;text-transform:uppercase}.hero-note{position:absolute;right:0;bottom:17%;font-size:.75rem;color:#8da2c0;writing-mode:vertical-rl;letter-spacing:.15em}.scroll-cue{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:.68rem;color:#6e809a;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:12px}.scroll-cue:before{content:"";height:32px;width:1px;background:linear-gradient(transparent,var(--cyan))}@keyframes float{0%,100%{transform:translate3d(var(--parallax-x,0px),var(--parallax-y,0px),0) rotateY(calc(-17deg + var(--pointer-x,0deg))) rotateZ(-7deg)}50%{transform:translate3d(var(--parallax-x,0px),calc(var(--parallax-y,0px) - 12px),0) rotateY(calc(-14deg + var(--pointer-x,0deg))) rotateZ(-5deg)}}.marquee{border-block:1px solid var(--line);padding:18px 0;color:#91a6c6;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;overflow:hidden;white-space:nowrap}.marquee span{margin:0 34px}.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.feature{min-height:210px;padding:25px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,rgba(22,39,65,.66),rgba(7,13,25,.52));transition:transform .25s,border-color .25s}.feature:hover{transform:translateY(-4px);border-color:rgba(117,229,255,.38)}.feature-icon{width:42px;height:42px;border:1px solid rgba(117,229,255,.3);border-radius:14px;display:grid;place-items:center;color:var(--cyan);margin-bottom:25px}.feature-icon svg{width:21px;height:21px}.feature h3{margin:0 0 7px;font-size:1.12rem}.feature p{margin:0;color:var(--muted);font-size:.9rem}.concept-band{border-block:1px solid var(--line);background:linear-gradient(90deg,transparent,rgba(30,74,130,.13),transparent)}
+/* Hero retomado para o render conceitual original em CSS, agora com movimento responsivo. */
+.hero-device-stage{min-height:500px;perspective:1200px;isolation:isolate;overflow:visible;--pointer-x:0deg;--pointer-y:0deg}
+.hero-device-stage:before{content:"";position:absolute;width:84%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(29,103,210,.23),rgba(26,71,145,.09) 42%,transparent 70%);filter:blur(10px);animation:auraBreath 6s ease-in-out infinite;z-index:-2}
+.hero-aura{position:absolute;width:66%;height:22%;bottom:13%;border-radius:50%;background:#1678ff;opacity:.24;filter:blur(42px);animation:groundPulse 5s ease-in-out infinite;z-index:-1}
+.hero-device-stage .orbit-ring{width:min(100%,455px);animation:orbitDrift 28s linear infinite;will-change:transform}
+.hero-device-stage .orbit-ring-secondary{width:min(86%,390px);border-color:rgba(93,205,255,.16);transform:rotateX(69deg) rotateZ(38deg);animation:orbitReverse 36s linear infinite}
+.hero-device-stage .orbit-ring-secondary:before{inset:18% -9%;transform:rotate(-28deg)}
+.hero-device-stage .satellite{top:17%;right:12%;width:11px;height:11px;animation:satellitePulse 3s ease-in-out infinite}
+.hero-device{transform:translate3d(var(--parallax-x,0px),var(--parallax-y,0px),0) rotateY(calc(-17deg + var(--pointer-x))) rotateZ(-7deg);animation:float 7s ease-in-out infinite,deviceGlow 5s ease-in-out infinite;transition:filter .3s;will-change:transform}
+.hero-device:after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(115deg,transparent 15%,rgba(181,222,255,.22) 48%,transparent 65%);transform:translateX(-130%);animation:deviceSweep 7s ease-in-out infinite}
+.hero-device .device-screen{box-shadow:inset 0 0 28px rgba(87,165,255,.08)}
+.hero-device .screen-logo{filter:drop-shadow(0 0 8px rgba(117,229,255,.55));animation:logoBreath 4s ease-in-out infinite}
+.hero-device .screen-time{font-variant-numeric:tabular-nums;text-shadow:0 0 20px rgba(109,174,255,.2)}
+.hero-device .screen-widget{animation:widgetGlow 5s ease-in-out infinite}
+.hero-device .screen-widget-secondary{margin-top:10px;opacity:.82;animation-delay:1.5s}
+.hero-device-label{position:absolute;bottom:3px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:9px;text-align:center;font-size:.7rem;letter-spacing:.16em;color:#91a7c7;text-transform:uppercase}
+.label-pulse{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:satellitePulse 2.4s ease-in-out infinite}
+.hero-orbit-caption{position:absolute;right:-4px;top:48%;writing-mode:vertical-rl;color:#607da7;font-size:.58rem;letter-spacing:.18em;opacity:.8}
+@keyframes orbitReverse{from{rotate:0deg}to{rotate:-360deg}}
+@keyframes auraBreath{0%,100%{opacity:.55;transform:scale(.94)}50%{opacity:1;transform:scale(1.06)}}
+@keyframes groundPulse{0%,100%{transform:scaleX(.78);opacity:.15}50%{transform:scaleX(1.08);opacity:.32}}
+@keyframes deviceGlow{0%,100%{filter:drop-shadow(0 0 14px rgba(69,145,255,.08))}50%{filter:drop-shadow(0 0 25px rgba(69,145,255,.22))}}
+@keyframes deviceSweep{0%,22%{transform:translateX(-130%)}58%,100%{transform:translateX(130%)}}
+@keyframes logoBreath{0%,100%{opacity:.8}50%{opacity:1}}
+@keyframes widgetGlow{0%,100%{border-color:rgba(137,191,255,.16);background:rgba(116,174,255,.05)}50%{border-color:rgba(117,229,255,.35);background:rgba(116,174,255,.1)}}
+@media(max-width:850px){.hero-device-stage{min-height:455px;width:min(100%,540px);margin:0 auto}.hero-device{transform:scale(.94) rotateY(-17deg) rotateZ(-7deg)}.hero-orbit-caption{right:2px}.hero-grid{gap:14px}}
+@keyframes heroFloatMobile{0%,100%{transform:translateY(0) scale(.82) rotateY(-17deg) rotateZ(-7deg)}50%{transform:translateY(-9px) scale(.82) rotateY(-14deg) rotateZ(-5deg)}}
+@media(max-width:640px){.hero-device-stage{min-height:405px;max-width:100%;overflow:hidden}.hero-device{transform:scale(.82) rotateY(-17deg) rotateZ(-7deg);animation:heroFloatMobile 7s ease-in-out infinite,deviceGlow 5s ease-in-out infinite}.hero-device-stage .orbit-ring{width:min(92vw,350px)}.hero-device-stage .orbit-ring-secondary{width:min(78vw,300px)}.hero-device-label{font-size:.58rem;letter-spacing:.12em;bottom:2px}.hero-orbit-caption{display:none}.hero-device-stage:before{width:100%}.hero-device-stage .satellite{right:10%}}
+@keyframes heroFloatTiny{0%,100%{transform:translateY(0) scale(.74) rotateY(-17deg) rotateZ(-7deg)}50%{transform:translateY(-7px) scale(.74) rotateY(-14deg) rotateZ(-5deg)}}
+@media(max-width:380px){.hero-device-stage{min-height:365px}.hero-device{transform:scale(.74) rotateY(-17deg) rotateZ(-7deg);animation:heroFloatTiny 7s ease-in-out infinite,deviceGlow 5s ease-in-out infinite}.hero-actions .btn{width:100%}}
+@media(prefers-reduced-motion:reduce){.hero-device,.hero-device:after,.hero-device-stage:before,.hero-aura,.hero-device .screen-logo,.hero-device .screen-widget,.hero-device-stage .orbit-ring,.label-pulse{animation:none!important}.hero-device{transform:rotateY(-17deg) rotateZ(-7deg)}}
+
+.prototype-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:42px;align-items:center}
+.prototype-copy h2{font-size:clamp(2.2rem,4.5vw,3.8rem);line-height:1.02;letter-spacing:-.055em;margin:14px 0}
+.prototype-status{display:flex;gap:11px;align-items:flex-start;padding:14px;margin:22px 0;border:1px solid rgba(117,229,255,.24);border-radius:15px;background:rgba(12,25,43,.75)}
+.prototype-status strong{display:block;font-size:.9rem;color:#e4f3ff}
+.prototype-status small{display:block;color:var(--muted);font-size:.8rem;margin-top:3px}
+.prototype-specs{margin-top:18px}
+.prototype-figure{margin:0;min-width:0;padding:10px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,rgba(12,25,43,.35),rgba(4,9,18,.12));box-shadow:0 22px 70px rgba(0,0,0,.24);overflow:hidden}
+.prototype-figure img{display:block;width:100%;height:auto;max-height:720px;object-fit:contain;border-radius:15px}
+.prototype-figure figcaption{display:flex;justify-content:space-between;gap:12px;padding:13px 9px 5px;color:#a8c5e8;font-size:.68rem;letter-spacing:.12em;font-weight:750;flex-wrap:wrap}
+@media(max-width:850px){.prototype-grid{grid-template-columns:1fr;gap:28px}}
+.concept-grid{display:grid;grid-template-columns:.8fr 1.2fr;align-items:center;gap:60px}.concept-grid h2{font-size:clamp(2.3rem,5vw,4rem);line-height:1.02;letter-spacing:-.06em;margin:14px 0}.spec-lines{border-top:1px solid var(--line)}.spec-line{display:flex;justify-content:space-between;gap:20px;padding:17px 0;border-bottom:1px solid var(--line);font-size:.93rem}.spec-line span:first-child{color:var(--muted)}.demo-shell{border:1px solid rgba(144,187,255,.2);border-radius:28px;background:linear-gradient(140deg,rgba(15,30,51,.96),rgba(5,10,20,.96));overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.2)}.demo-head{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:18px 22px;border-bottom:1px solid var(--line)}.demo-brand{display:flex;gap:10px;align-items:center;font-weight:750;letter-spacing:.08em}.live-dot{width:7px;height:7px;border-radius:50%;background:#6fe9bb;box-shadow:0 0 10px #6fe9bb}.demo-body{display:grid;grid-template-columns:190px 1fr;min-height:410px}.demo-tabs{padding:17px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:7px}.demo-tab{border:0;text-align:left;background:transparent;color:#8fa1bc;padding:12px;border-radius:12px;display:flex;gap:10px;align-items:center;font-size:.88rem}.demo-tab[aria-selected="true"]{background:rgba(106,168,255,.14);color:#dceaff;border:1px solid rgba(117,178,255,.2)}.demo-panel{padding:25px;min-width:0}.panel-title{font-size:1.4rem;margin:0 0 5px;letter-spacing:-.03em}.panel-desc{color:var(--muted);font-size:.88rem;margin:0 0 22px}.widget-card{background:rgba(255,255,255,.035);border:1px solid var(--line);border-radius:18px;padding:18px}.clock-large{font-size:clamp(2.7rem,7vw,4.8rem);font-weight:300;letter-spacing:-.07em;line-height:1.1}.clock-date{color:#9fb3d1;margin-top:5px}.dash-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.mini-label{font-size:.74rem;color:var(--muted)}.mini-value{font-size:1.25rem;margin-top:5px}.task-list{display:grid;gap:9px}.task-row{display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;background:rgba(255,255,255,.035)}.task-row input{accent-color:#74cfff;width:17px;height:17px}.task-row.done span{text-decoration:line-through;color:#71829c}.task-add{display:flex;gap:8px;margin-top:13px}.field{min-width:0;width:100%;border:1px solid var(--line);border-radius:12px;background:#070e1a;color:white;padding:11px 12px}.task-add button,.control-btn{border:1px solid rgba(117,229,255,.3);background:rgba(103,169,255,.12);color:#d9eeff;border-radius:12px;padding:10px 14px}.timer-face{font-size:3.5rem;font-variant-numeric:tabular-nums;letter-spacing:-.06em;text-align:center;margin:15px 0}.timer-controls{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.timer-settings{display:flex;justify-content:center;gap:8px;align-items:center;color:var(--muted);font-size:.84rem}.timer-settings input{width:72px}.calc{max-width:330px;margin:auto}.calc-display{width:100%;font-size:2rem;text-align:right;padding:17px 12px;background:#060b14;color:white;border:1px solid var(--line);border-radius:14px;margin-bottom:10px}.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.calc-grid button{padding:13px 0;border:1px solid var(--line);border-radius:12px;background:#111d30;color:white}.calc-grid button.op{color:var(--cyan);background:#14283f}.theme-options{display:flex;gap:10px;margin:18px 0}.theme-swatch{width:68px;height:58px;border:2px solid transparent;border-radius:14px;background:#07101c;position:relative}.theme-swatch:after{content:"";position:absolute;left:13px;top:13px;width:40px;height:30px;border-radius:8px;background:linear-gradient(135deg,#9bd4ff,#234e91)}.theme-swatch.violet{background:#100b20}.theme-swatch.violet:after{background:linear-gradient(135deg,#d3baff,#5838a3)}.theme-swatch.midnight{background:#030508}.theme-swatch.midnight:after{background:linear-gradient(135deg,#5f758f,#101827)}.theme-swatch[aria-pressed="true"]{border-color:var(--cyan)}.screen-selector{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.screen-selector button{border:1px solid var(--line);background:transparent;color:#a9bbd4;padding:9px 12px;border-radius:999px}.screen-selector button.active{color:white;background:rgba(108,169,255,.16);border-color:rgba(117,229,255,.35)}.concept-screen{min-height:175px;display:flex;align-items:center;justify-content:center;text-align:center;border-radius:18px;background:radial-gradient(ellipse at 50% 0%,#193b64,#091322 65%);border:1px solid rgba(116,180,255,.2);padding:22px}.concept-screen h3{font-size:1.6rem;font-weight:450;margin:7px 0}.concept-screen p{color:#a3bad8;margin:0;font-size:.88rem}.models{display:grid;grid-template-columns:1fr 1fr;gap:18px}.model-card{border:1px solid var(--line);border-radius:28px;padding:26px;background:linear-gradient(150deg,rgba(18,31,51,.9),rgba(6,11,21,.9));position:relative;overflow:hidden}.model-card.plus{border-color:rgba(116,187,255,.42);background:radial-gradient(ellipse at 100% 0%,rgba(65,132,255,.16),transparent 42%),linear-gradient(150deg,rgba(18,31,51,.95),rgba(6,11,21,.95))}.model-card h3{font-size:1.65rem;margin:14px 0 4px}.model-card .desc{color:var(--muted);min-height:48px}.price{font-size:2.3rem;letter-spacing:-.05em;margin:18px 0 2px}.price-note{font-size:.75rem;color:#8194af}.pill{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:5px 10px;color:#a8bedb;font-size:.72rem}.model-visual{height:180px;display:grid;place-items:center;position:relative;margin:6px 0 16px}.mini-device{height:155px;width:85px;border-radius:17px;padding:5px;background:linear-gradient(130deg,#68788b,#090d15 50%,#65758b);box-shadow:0 18px 30px #000;transform:rotate(-8deg)}.mini-device>div{height:100%;border-radius:12px;background:radial-gradient(ellipse at top,#204c7a,#060b14 75%);border:1px solid #2a3b50;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px}.mini-device strong{font-weight:350;font-size:1.1rem}.mini-device small{font-size:.48rem;color:#8ebaff}.visual-glow{position:absolute;width:180px;height:100px;border-radius:50%;background:var(--glow);filter:blur(24px)}.model-list{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:12px}.model-list li{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;color:#c6d2e4}.check{color:var(--cyan);font-weight:800}.compare-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:18px;margin-top:24px}.compare{width:100%;border-collapse:collapse;min-width:500px}.compare th,.compare td{padding:14px 18px;border-bottom:1px solid var(--line);text-align:left;font-size:.87rem}.compare th{background:rgba(255,255,255,.035);color:#dce8fa}.compare td{color:#a9bad2}.compare tr:last-child td{border-bottom:0}.compare td:not(:first-child),.compare th:not(:first-child){text-align:center}.yes{color:var(--cyan)!important}.no{color:#5c6b81!important}.philosophy{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}.philosophy-art{min-height:310px;position:relative;display:grid;place-items:center;overflow:hidden;border:1px solid var(--line);border-radius:28px;background:radial-gradient(ellipse at center,rgba(51,107,180,.2),transparent 65%),#080e19}.big-orbit{width:220px;height:220px;border:1px solid rgba(124,188,255,.65);border-radius:50%;position:relative;box-shadow:0 0 70px var(--glow)}.big-orbit:before{content:"";position:absolute;inset:35px -45px;border:2px solid #83c4ff;border-radius:50%;transform:rotate(-25deg)}.big-orbit:after{content:"";position:absolute;right:5px;top:20px;width:12px;height:12px;background:#b5efff;border-radius:50%;box-shadow:0 0 25px #75e5ff}.philosophy h2{font-size:clamp(2.1rem,4vw,3.4rem);line-height:1.04;letter-spacing:-.055em}.philosophy p{color:var(--muted)}.footer{border-top:1px solid var(--line);padding:45px 0 28px;background:#03060d}.footer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:30px}.footer p{color:#71829c;font-size:.83rem}.footer-links{display:flex;gap:20px;flex-wrap:wrap;color:#a1b1c8;font-size:.84rem}.footer-bottom{border-top:1px solid rgba(255,255,255,.07);margin-top:32px;padding-top:18px;display:flex;justify-content:space-between;gap:15px;color:#65758d;font-size:.75rem}.concept-note{font-size:.75rem;color:#7188a7;margin-top:12px}.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:none}.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);background:#10233a;border:1px solid rgba(117,229,255,.3);padding:11px 16px;border-radius:999px;color:#e5f5ff;opacity:0;pointer-events:none;transition:.25s;z-index:100;font-size:.84rem}.toast.show{opacity:1;transform:translate(-50%,0)}@media(max-width:850px){.navlinks{gap:15px}.hero-grid{grid-template-columns:1fr}.hero-copy-wrap{text-align:center}.hero-copy{margin:auto}.hero-actions{justify-content:center}.device-stage{min-height:440px}.hero-note{right:6%}.feature-grid{grid-template-columns:repeat(2,1fr)}.concept-grid{grid-template-columns:1fr;gap:28px}.philosophy{gap:28px}.demo-body{grid-template-columns:150px 1fr}}@media(max-width:640px){.wrap{width:min(100% - 30px,1160px)}.topbar{height:66px}.navlinks{display:none;position:absolute;top:65px;left:0;right:0;padding:18px 22px 22px;background:rgba(5,8,18,.97);border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:0}.navlinks.open{display:flex}.navlinks a{padding:12px 4px}.nav>.btn{display:none}.menu-btn{display:block}.hero{padding:55px 0 60px;min-height:auto}.hero h1{font-size:clamp(3.4rem,17vw,5.5rem)}.device-stage{min-height:385px}.device{transform:scale(.85) rotateY(-17deg) rotateZ(-7deg)}.orbit-ring{width:330px}.hero-note{display:none}.section{padding:78px 0}.feature-grid{grid-template-columns:1fr}.feature{min-height:175px}.demo-head{padding:15px}.demo-body{grid-template-columns:1fr}.demo-tabs{border-right:0;border-bottom:1px solid var(--line);flex-direction:row;overflow-x:auto;padding:10px}.demo-tab{white-space:nowrap;padding:9px 11px}.demo-panel{padding:17px}.dash-row{grid-template-columns:1fr 1fr}.models{grid-template-columns:1fr}.model-card{padding:21px}.philosophy{grid-template-columns:1fr}.philosophy-art{min-height:250px}.footer-top,.footer-bottom{flex-direction:column}.footer-bottom{gap:8px}.scroll-cue{display:none}.section-head{margin-bottom:30px}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}} 
+
+
+.colors-section{overflow:hidden;background:radial-gradient(ellipse at 75% 50%,rgba(44,100,180,.12),transparent 52%)}
+.colors-layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center}
+.colors-layout h2{font-size:clamp(2.1rem,4.4vw,3.7rem);line-height:1.03;letter-spacing:-.055em;margin:14px 0}
+.color-swatches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.color-option{min-width:0;text-align:center;padding:16px 9px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.025);transition:transform .25s,border-color .25s,background .25s}
+.color-option:hover{transform:translateY(-5px);border-color:rgba(117,229,255,.45);background:rgba(255,255,255,.045)}
+.color-chip{display:block;width:58px;height:82px;margin:0 auto 13px;border-radius:13px;border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 3px rgba(255,255,255,.2),0 12px 25px rgba(0,0,0,.25);background:linear-gradient(135deg,#4a5260,#080b12 55%,#303847)}
+.color-chip.white{background:linear-gradient(135deg,#fff,#d7dce5 58%,#a8b0bd)}
+.color-chip.blue{background:linear-gradient(135deg,#8acbff,#1269d9 55%,#092e70)}
+.color-chip.purple{background:linear-gradient(135deg,#d5b4ff,#7836cf 55%,#35105f)}
+.color-option strong{display:block;font-size:.8rem}
+.color-option small{display:block;color:var(--muted);font-size:.68rem;margin-top:3px}
+.customization-note{display:flex;align-items:flex-start;gap:14px;margin-top:20px;padding:18px;border:1px solid rgba(117,229,255,.25);border-radius:18px;background:rgba(11,25,44,.6)}
+.customization-note .custom-icon{flex:0 0 38px;width:38px;height:38px;display:grid;place-items:center;border-radius:12px;color:var(--cyan);background:rgba(102,169,255,.12);font-size:1.2rem}
+.customization-note p{margin:3px 0 0;color:var(--muted);font-size:.87rem}
+@media(max-width:850px){.colors-layout{grid-template-columns:1fr;gap:28px}}
+@media(max-width:520px){.color-swatches{gap:7px}.color-option{padding:12px 5px}.color-chip{width:43px;height:66px}.color-option strong{font-size:.72rem}.color-option small{font-size:.61rem}}
+
+/* ORBIT motion system: subtle, fast, and respectful of reduced-motion settings. */
+.scroll-progress{position:fixed;z-index:120;top:0;left:0;right:0;height:2px;background:rgba(255,255,255,.04);pointer-events:none}
+.scroll-progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,#6daeff,#75e5ff);box-shadow:0 0 12px rgba(117,229,255,.65);transform-origin:left center}
+.orbit-ring{animation:orbitDrift 24s linear infinite}
+.satellite{animation:satellitePulse 3.2s ease-in-out infinite}
+.hero:after{content:"";position:absolute;z-index:-1;inset:0;pointer-events:none;opacity:.2;background-image:radial-gradient(rgba(166,204,255,.6) .7px,transparent .7px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 85%)}
+.feature,.model-card,.demo-shell,.prototype-figure,.philosophy-art{transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s,box-shadow .35s}
+.feature:hover,.model-card:hover{transform:translateY(-6px);box-shadow:0 18px 45px rgba(0,0,0,.18)}
+.model-card:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;background:linear-gradient(115deg,transparent 15%,rgba(149,207,255,.08) 48%,transparent 70%);transform:translateX(-80%);transition:opacity .3s}
+.model-card:hover:before{opacity:1;animation:cardSweep 1s ease forwards}
+.prototype-section{overflow:hidden;background:radial-gradient(ellipse at 75% 45%,rgba(39,83,145,.13),transparent 48%)}
+.prototype-image-wrap{position:relative;overflow:hidden;border-radius:15px;background:radial-gradient(ellipse at 50% 50%,rgba(49,112,205,.18),transparent 67%)}
+.prototype-image-wrap:after{content:"";position:absolute;inset:-20% auto -20% -65%;width:38%;transform:skewX(-18deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);pointer-events:none;animation:prototypeSweep 8s ease-in-out infinite}
+.prototype-figure img{display:block;width:100%;height:auto;max-height:760px;object-fit:contain;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.prototype-figure:hover img{transform:scale(1.015)}
+.reveal{transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.feature-grid .feature:nth-child(2),.models .model-card:nth-child(2){transition-delay:.07s}
+.feature-grid .feature:nth-child(3){transition-delay:.13s}
+.feature-grid .feature:nth-child(4){transition-delay:.19s}
+.feature-grid .feature:nth-child(5){transition-delay:.25s}
+.feature-grid .feature:nth-child(6){transition-delay:.31s}
+@keyframes orbitDrift{from{rotate:0deg}to{rotate:360deg}}
+@keyframes satellitePulse{0%,100%{opacity:.75;scale:1}50%{opacity:1;scale:1.35}}
+@keyframes cardSweep{to{transform:translateX(80%)}}
+@keyframes prototypeSweep{0%,30%{left:-65%}65%,100%{left:135%}}
+@media(max-width:640px){.prototype-figure{padding:7px}.prototype-figure figcaption{font-size:.59rem}.hero:after{background-size:32px 32px;opacity:.13}}
+@media(prefers-reduced-motion:reduce){.orbit-ring,.satellite,.prototype-image-wrap:after{animation:none!important}.model-card:before{display:none}.feature,.model-card,.demo-shell,.prototype-figure,.philosophy-art,.prototype-figure img{transition:none!important}}
+
+
+/* Mobile usability and motion polish */
+.navlinks a{transition:color .22s ease,opacity .22s ease}
+.navlinks a.active{color:#fff;text-shadow:0 0 18px rgba(117,229,255,.45)}
+.scroll-progress span{transition:width .08s linear}
+@media(max-width:850px){.wrap{width:min(100% - 36px,1160px)}.hero{min-height:auto}.hero h1{font-size:clamp(3.2rem,10vw,5.8rem)}.prototype-grid{grid-template-columns:1fr}.prototype-figure{max-width:760px;margin:auto;width:100%}.colors-layout{grid-template-columns:1fr}.footer-links{gap:14px}}
+@media(max-width:640px){html{scroll-padding-top:72px}.topbar{height:66px}.brand{font-size:1rem;letter-spacing:.22em}.brand svg{width:27px;height:27px}.wrap{width:calc(100% - 28px)}.section{padding:66px 0}.hero{padding:42px 0 52px}.hero-grid{grid-template-columns:minmax(0,1fr);gap:4px}.hero-copy-wrap{text-align:left}.hero-copy{font-size:1rem}.hero-actions{justify-content:flex-start;gap:9px}.hero-actions .btn{min-height:46px}.development-status{max-width:100%}.feature-grid{grid-template-columns:1fr}.feature{padding:21px}.demo-body{min-width:0}.demo-panel{padding:14px}.compare-wrap{max-width:100%}.spec-line{align-items:flex-start;font-size:.85rem}.spec-line strong{text-align:right;max-width:60%}.prototype-copy h2{font-size:clamp(2rem,9vw,3rem)}.prototype-figure img{max-height:520px}.color-option{min-width:0}.footer-top{gap:20px}.footer-bottom{overflow-wrap:anywhere}}
+@media(max-width:360px){.wrap{width:calc(100% - 22px)}.hero h1{font-size:3.05rem}.demo-tabs{gap:4px}.demo-tab{font-size:.78rem;padding:8px}.price{font-size:2rem}}
+@media(hover:none){.feature:hover,.model-card:hover{transform:none;box-shadow:none}.btn:hover{transform:none}}
+
+</style>
+</head>
+<body data-theme="blue">
+<header class="topbar">
+ <div class="wrap nav">
+  <a class="brand" href="#inicio" aria-label="ORBIT início">
+   <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="22" cy="24" r="14" stroke="url(#g)" stroke-width="3.5"/><ellipse cx="22" cy="24" rx="23" ry="7" transform="rotate(-27 22 24)" stroke="url(#g)" stroke-width="3.5"/><circle cx="42" cy="10" r="3.2" fill="#b9efff"/><defs><linearGradient id="g" x1="4" y1="5" x2="43" y2="43"><stop stop-color="#e2f4ff"/><stop offset="1" stop-color="#579bff"/></linearGradient></defs></svg>
+   <span>ORBIT<small>POWERED BY LIQUIDOS</small></span>
+  </a>
+  <nav class="navlinks" id="navlinks" aria-label="Navegação principal">
+   <a href="#conceito">Conceito</a><a href="#recursos">Recursos</a><a href="#liquidos">LiquidOS</a><a href="#prototipo">Protótipo</a><a href="#cores">Cores</a><a href="#modelos">Modelos</a>
+  </nav>
+  <a class="btn" href="#liquidos">Explorar experiência <span aria-hidden="true">↗</span></a>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navlinks" aria-label="Abrir menu">☰</button>
+ </div>
+</header>
+<main>
+<section class="hero" id="inicio">
+ <div class="wrap hero-grid">
+  <div class="hero-copy-wrap">
+   <div class="eyebrow">Um poderoso dispositivo compacto</div>
+   <h1>Seu dia.<br><span>Em órbita.</span></h1>
+   <p class="hero-copy">Apenas 9 × 5,5 cm de formato previsto. Um poderoso dispositivo compacto, com estrutura planejada para impressão 3D e uma experiência de produtividade própria.</p>
+   <div class="hero-actions"><a class="btn primary" href="#modelos">Conheça os dispositivos <span aria-hidden="true">↘</span></a><a class="btn" href="#liquidos">Descubra o LiquidOS</a></div>
+   <div class="powered">DESENVOLVIDO PARA O SEU RITMO · <b>POWERED BY LIQUIDOS</b></div>
+   <div class="development-status"><span class="status-dot"></span><span><strong>Primeiro protótipo · Em desenvolvimento</strong><small>Sem previsão de lançamento no momento.</small></span></div>
+  </div>
+  <div class="device-stage hero-device-stage" aria-label="Representação conceitual animada do dispositivo ORBIT">
+   <div class="hero-aura" aria-hidden="true"></div>
+   <div class="orbit-ring" aria-hidden="true"><span class="satellite"></span></div>
+   <div class="orbit-ring orbit-ring-secondary" aria-hidden="true"></div>
+   <div class="device hero-device" aria-label="Modelo conceitual do dispositivo ORBIT">
+    <div class="device-screen">
+     <div class="screen-top"><span>ORBIT OS</span><span>● ONLINE</span></div>
+     <svg class="screen-logo" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="22" cy="24" r="14" stroke="#83baff" stroke-width="2.5"/><ellipse cx="22" cy="24" rx="23" ry="7" transform="rotate(-27 22 24)" stroke="#a8e9ff" stroke-width="2.5"/><circle cx="42" cy="10" r="3" fill="#d5f6ff"/></svg>
+     <div class="screen-time" id="heroClock">--:--</div>
+     <div class="screen-date" id="heroDate">SEU DIA EM ÓRBITA</div>
+     <div class="screen-widget"><small>FOCO DE HOJE</small><p>Um passo de cada vez.</p><div class="screen-task"><i></i></div></div>
+     <div class="screen-widget screen-widget-secondary"><small>LIQUIDOS / STATUS</small><p>Seu ritmo. Sua rotina.</p></div>
+    </div>
+   </div>
+   <div class="hero-device-label"><span class="label-pulse"></span> ORBIT · CONCEITO DE PRODUTO</div>
+   <div class="hero-orbit-caption" aria-hidden="true">DESIGN COMPACTO <span>·</span> LIQUIDOS</div>
+  </div>
+ </div>
+ <div class="scroll-cue">Role para explorar</div>
+</section>
+<div class="marquee" aria-label="Valores da ORBIT"><span>Tempo com intenção</span>✳<span>Design que simplifica</span>✳<span>Powered by LiquidOS</span>✳<span>Seu dia. Em órbita.</span></div>
+<section class="section" id="conceito">
+ <div class="wrap concept-grid reveal">
+  <div><div class="eyebrow">01 / O conceito</div><h2>Menos ruído.<br>Mais direção.</h2><p class="muted">A ORBIT nasce de uma ideia simples: um dispositivo poderoso em um formato compacto, pensado para ajudar você a se concentrar no que importa — sem complicar o caminho. O projeto prevê um corpo de 9 cm × 5,5 cm, produzido por impressão 3D.</p></div>
+  <div class="spec-lines"><div class="spec-line"><span>Filosofia</span><strong>Clareza por design</strong></div><div class="spec-line"><span>Formato previsto</span><strong>9 cm × 5,5 cm</strong></div><div class="spec-line"><span>Construção prevista</span><strong>Estrutura produzida por impressão 3D</strong></div><div class="spec-line"><span>Experiência</span><strong>Compacta e intuitiva</strong></div><div class="spec-line"><span>Ecossistema</span><strong>Powered by LiquidOS</strong></div><div class="spec-line"><span>Propósito</span><strong>Tempo, tarefas e foco</strong></div><p class="concept-note">As imagens e telas desta página são representações conceituais da proposta ORBIT, não fotografias ou especificações técnicas confirmadas do produto final.</p></div>
+ </div>
+</section>
+<section class="section prototype-section" id="prototipo" aria-labelledby="prototype-title">
+ <div class="wrap prototype-grid">
+  <div class="prototype-copy reveal">
+   <div class="eyebrow">PROTÓTIPO 01 / CARCAÇA</div>
+   <h2 id="prototype-title">Uma ideia tomando forma.</h2>
+   <p class="muted">Este é o primeiro protótipo visual da carcaça ORBIT, com a tampa frontal e a carcaça traseira separadas, ainda sem componentes internos.</p>
+   <div class="prototype-status"><span class="status-dot"></span><div><strong>Em fase de desenvolvimento</strong><small>O projeto ainda está sendo desenvolvido e não tem previsão de lançamento.</small></div></div>
+   <div class="spec-lines prototype-specs">
+    <div class="spec-line"><span>Altura indicada</span><strong>90 mm (9 cm)</strong></div>
+    <div class="spec-line"><span>Largura indicada</span><strong>55 mm (5,5 cm)</strong></div>
+    <div class="spec-line"><span>Fabricação planejada</span><strong>Impressão 3D</strong></div>
+    <div class="spec-line"><span>Estado atual</span><strong>Protótipo de carcaça</strong></div>
+   </div>
+   <p class="concept-note">As medidas seguem o desenho do protótipo e podem mudar durante o desenvolvimento. A imagem mostra a carcaça sem componentes e não representa um produto final pronto para uso.</p>
+  </div>
+  <figure class="prototype-figure reveal">
+   <div class="prototype-image-wrap"><img src="orbit-prototipo-sem-fundo.png" alt="Primeiro protótipo visual da carcaça ORBIT sem fundo: tampa frontal vazada à esquerda e carcaça traseira preta à direita." loading="eager" decoding="async"></div>
+   <figcaption><span>ORBIT / CARCAÇA</span><span>PROTÓTIPO VISUAL · SEM COMPONENTES</span></figcaption>
+  </figure>
+ </div>
+</section>
+
+
+<section class="section colors-section" id="cores" aria-labelledby="colors-title">
+ <div class="wrap colors-layout">
+  <div class="reveal">
+   <div class="eyebrow">CORES DISPONÍVEIS</div>
+   <h2 id="colors-title">Quatro cores para começar.</h2>
+   <p class="muted">Inicialmente, o ORBIT será oferecido em quatro opções de cor, pensadas para combinar com estilos diferentes.</p>
+   <div class="customization-note"><span class="custom-icon" aria-hidden="true">✦</span><div><strong>Deixe o ORBIT com a sua cara.</strong><p>Por um valor adicional, você poderá personalizar a cor e escolher acabamentos ou detalhes exclusivos. O custo dessa personalização será informado quando as opções forem definidas.</p></div></div>
+  </div>
+  <div class="color-swatches reveal" aria-label="Quatro cores iniciais previstas para o ORBIT">
+   <div class="color-option"><span class="color-chip"></span><strong>Preto Eclipse</strong><small>Clássico e discreto</small></div>
+   <div class="color-option"><span class="color-chip white"></span><strong>Branco Lunar</strong><small>Limpo e minimalista</small></div>
+   <div class="color-option"><span class="color-chip blue"></span><strong>Azul Nebulosa</strong><small>Moderno e vibrante</small></div>
+   <div class="color-option"><span class="color-chip purple"></span><strong>Roxo Galáxia</strong><small>Único e marcante</small></div>
+  </div>
+ </div>
+</section>
+
+<section class="section concept-band" id="recursos">
+ <div class="wrap">
+  <div class="section-head reveal"><div class="eyebrow">02 / Feito para o seu fluxo</div><h2>Pequenas ferramentas.<br>Mais espaço mental.</h2><p>O essencial para planejar, agir e voltar ao foco — reunido em uma experiência clara.</p></div>
+  <div class="feature-grid">
+   <article class="feature reveal"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Tempo sob controle</h3><p>Relógio, data e contagens regressivas para dar ritmo ao seu dia.</p></article>
+   <article class="feature reveal"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m5 12 4 4L19 6"/><path d="M20 12v7H4V5h11"/></svg></div><h3>Tarefas com clareza</h3><p>Organize o próximo passo e acompanhe o que já avançou.</p></article>
+   <article class="feature reveal"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v4m0 10v4M3 12h4m10 0h4"/><circle cx="12" cy="12" r="6"/></svg></div><h3>Modo foco</h3><p>Reserve um intervalo para estudar ou trabalhar com intenção.</p></article>
+   <article class="feature reveal"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h4"/></svg></div><h3>Notas rápidas</h3><p>Capture uma ideia quando ela aparece. A digitação faz parte da proposta Plus.</p></article>
+   <article class="feature reveal"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V5m0 14h17"/><path d="m7 15 4-4 3 2 5-6"/></svg></div><h3>Visão do progresso</h3><p>Conceito de estatísticas para enxergar hábitos e sessões de produtividade.</p></article>
+   <article class="feature reveal"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 20 7.5 12 12 4 7.5 12 3Z"/><path d="M4 12l8 4.5 8-4.5M4 16.5 12 21l8-4.5"/></svg></div><h3>Compacto por construção</h3><p>Formato previsto de 9 × 5,5 cm e corpo planejado para fabricação por impressão 3D.</p></article>
+   <article class="feature reveal"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.8 1.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5v.2h-2.6v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1-1.8-1.8.1-.1A1.7 1.7 0 0 0 8 15a1.7 1.7 0 0 0-1.5-1H6v-2.6h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1 1.8-1.8.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5v-.2h2.6v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.8 1.8-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.2V14h-.2a1.7 1.7 0 0 0-1.5 1z"/></svg></div><h3>Seu jeito de usar</h3><p>Temas e ajustes para adaptar a interface à sua preferência.</p></article>
+  </div>
+ </div>
+</section>
+<section class="section" id="liquidos">
+ <div class="wrap">
+  <div class="section-head reveal"><div class="eyebrow">03 / Entre na interface</div><h2>Conheça o LiquidOS<br>na prática.</h2><p>Explore uma demonstração interativa inspirada na experiência ORBIT. As ferramentas abaixo funcionam neste navegador e não estão conectadas a um dispositivo físico.</p></div>
+  <div class="demo-shell reveal">
+   <div class="demo-head"><div class="demo-brand"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="22" cy="24" r="14" stroke="#83baff" stroke-width="3"/><ellipse cx="22" cy="24" rx="23" ry="7" transform="rotate(-27 22 24)" stroke="#a8e9ff" stroke-width="3"/></svg> LIQUIDOS <span class="live-dot" title="Demonstração local"></span></div><span class="muted" style="font-size:.75rem">DEMO INTERATIVA · VERSÃO CONCEITUAL</span></div>
+   <div class="demo-body">
+    <div class="demo-tabs" role="tablist" aria-label="Telas demonstrativas">
+     <button class="demo-tab" role="tab" aria-selected="true" data-panel="home">◷ <span>Início</span></button>
+     <button class="demo-tab" role="tab" aria-selected="false" data-panel="tasks">✓ <span>Tarefas</span></button>
+     <button class="demo-tab" role="tab" aria-selected="false" data-panel="focus">◎ <span>Modo foco</span></button>
+     <button class="demo-tab" role="tab" aria-selected="false" data-panel="calc">＋ <span>Calculadora</span></button>
+     <button class="demo-tab" role="tab" aria-selected="false" data-panel="themes">◐ <span>Temas</span></button>
+    </div>
+    <div class="demo-panel" id="demoPanel" role="tabpanel" aria-live="polite"></div>
+   </div>
+  </div>
+  <p class="concept-note">Demonstração de conceito: tarefas, temporizador, calculadora e tema são executados localmente nesta página. Não há sincronização com hardware, agenda externa ou notificações reais.</p>
+ </div>
+</section>
+<section class="section concept-band" id="modelos">
+ <div class="wrap">
+  <div class="section-head reveal"><div class="eyebrow">04 / A linha ORBIT</div><h2>Do essencial ao completo.</h2><p>Duas experiências, uma mesma filosofia: ajudar você a organizar o dia com menos atrito.</p></div>
+  <div class="models">
+   <article class="model-card reveal">
+    <span class="pill">ESSENCIAL</span><div class="model-visual"><div class="visual-glow"></div><div class="mini-device"><div><small>LIQUIDOS</small><strong id="oneClock">09:41</strong><small>SEU DIA, EM ORDEM</small></div></div></div>
+    <h3>ORBIT One</h3><p class="desc">Seu primeiro passo para uma rotina mais organizada.</p><div class="price">R$ 329,90</div><div class="price-note">Preço de referência informado para o projeto.</div>
+    <ul class="model-list"><li><span class="check">✓</span><span>Tela inicial com relógio e data</span></li><li><span class="check">✓</span><span>Agenda, tarefas e contagem regressiva</span></li><li><span class="check">✓</span><span>Modo foco para estudar</span></li><li><span class="check">✓</span><span>Temas básicos e configurações essenciais</span></li><li><span class="check">✓</span><span>Conexão com software compatível (proposta)</span></li></ul>
+    <button class="btn" style="margin-top:25px" data-compare="one">Explorar o essencial ↗</button>
+   </article>
+   <article class="model-card plus reveal">
+    <span class="pill">EXPERIÊNCIA COMPLETA</span><div class="model-visual"><div class="visual-glow"></div><div class="mini-device"><div><small>LIQUIDOS PLUS</small><strong>✳</strong><small>MAIS POSSIBILIDADES</small><small>NOTAS · FOCO · APPS</small></div></div></div>
+    <h3>ORBIT Plus</h3><p class="desc">Mais ferramentas. Mais personalização. Mais possibilidades.</p><div class="price">R$ 379,90</div><div class="price-note">Preço de referência informado para o projeto.</div>
+    <ul class="model-list"><li><span class="check">✓</span><span>Tudo do ORBIT One</span></li><li><span class="check">✓</span><span>Notas rápidas com teclado na tela</span></li><li><span class="check">✓</span><span>Calculadora integrada e aplicativos adicionais</span></li><li><span class="check">✓</span><span>Estatísticas de produtividade e notificações compatíveis</span></li><li><span class="check">✓</span><span>Personalização avançada e modo foco configurável</span></li></ul>
+    <button class="btn primary" style="margin-top:25px" data-compare="plus">Explorar o completo ↗</button>
+   </article>
+  </div>
+  <div class="compare-wrap reveal" id="comparison"><table class="compare"><thead><tr><th>Recursos</th><th>ORBIT One</th><th>ORBIT Plus</th></tr></thead><tbody>
+   <tr><td>Relógio, data, agenda e tarefas</td><td class="yes">Incluído</td><td class="yes">Incluído</td></tr>
+   <tr><td>Modo foco e contagem regressiva</td><td class="yes">Incluído</td><td class="yes">Configurável</td></tr>
+   <tr><td>Temas</td><td>Básicos</td><td class="yes">Avançados</td></tr>
+   <tr><td>Notas com teclado na tela</td><td class="no">—</td><td class="yes">Incluído</td></tr>
+   <tr><td>Calculadora e apps extras</td><td class="no">—</td><td class="yes">Incluído</td></tr>
+   <tr><td>Estatísticas de produtividade</td><td class="no">—</td><td class="yes">Incluído</td></tr>
+   <tr><td>Preço de referência</td><td>R$ 329,90</td><td>R$ 379,90</td></tr>
+  </tbody></table></div>
+ </div>
+</section>
+<section class="section" id="filosofia">
+ <div class="wrap philosophy reveal">
+  <div class="philosophy-art" aria-hidden="true"><div class="big-orbit"></div></div>
+  <div><div class="eyebrow">05 / Design com intenção</div><h2>O futuro não precisa ser complicado.</h2><p>Linhas precisas. Interações diretas. Informação que aparece quando você precisa dela. A ORBIT une uma linguagem visual técnica a uma experiência pensada para o cotidiano.</p><p>O dispositivo e as telas apresentados aqui são conceitos visuais de marca. As dimensões previstas são 9 × 5,5 cm, com estrutura planejada para fabricação por impressão 3D. Especificações finais, integrações e disponibilidade dependem da implementação real do produto.</p><a class="btn" href="#inicio">Voltar ao início ↑</a></div>
+ </div>
+</section>
+</main>
+<footer class="footer">
+ <div class="wrap"><div class="footer-top"><div><a class="brand" href="#inicio"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="22" cy="24" r="14" stroke="#83baff" stroke-width="3.5"/><ellipse cx="22" cy="24" rx="23" ry="7" transform="rotate(-27 22 24)" stroke="#a8e9ff" stroke-width="3.5"/><circle cx="42" cy="10" r="3" fill="#d5f6ff"/></svg><span>ORBIT<small>POWERED BY LIQUIDOS</small></span></a><p>Seu dia. Em órbita.</p></div><div class="footer-links"><a href="#conceito">Conceito</a><a href="#recursos">Recursos</a><a href="#liquidos">LiquidOS</a><a href="#prototipo">Protótipo</a><a href="#cores">Cores</a><a href="#modelos">Modelos</a></div></div><div class="footer-bottom"><span>© <span id="year"></span> ORBIT · Conceito de marca</span><span>Uma experiência demonstrativa. Sem venda ou checkout.</span></div></div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(() => {
+ const $ = (s,root=document) => root.querySelector(s);
+ const $$ = (s,root=document) => [...root.querySelectorAll(s)];
+ const heroClock=$('#heroClock'), heroDate=$('#heroDate'), oneClock=$('#oneClock');
+ const progress=$('#scrollProgress');
+ let progressTick=false;
+ function updateScrollProgress(){
+  if(!progress)return;
+  const max=document.documentElement.scrollHeight-window.innerHeight;
+  const pct=max>0?(window.scrollY/max)*100:0;
+  progress.style.width=Math.min(100,Math.max(0,pct))+'%';
+  progressTick=false;
+ }
+ window.addEventListener('scroll',()=>{if(!progressTick){window.requestAnimationFrame(updateScrollProgress);progressTick=true}},{passive:true});
+ updateScrollProgress();
+
+ const fmtTime = d => d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',hour12:false});
+ function updateClock(){const d=new Date();if(heroClock)heroClock.textContent=fmtTime(d);if(oneClock)oneClock.textContent=fmtTime(d);if(heroDate)heroDate.textContent=d.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'}).toLocaleUpperCase('pt-BR')}
+ updateClock();setInterval(updateClock,1000);$('#year').textContent=new Date().getFullYear();
+ const menu=$('#menuBtn'), nav=$('#navlinks');
+ menu.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');menu.textContent=open?'×':'☰'});
+ $$('#navlinks a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='☰'}));
+ const observer = ('IntersectionObserver' in window) ? new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.12}) : null;
+ $$('.reveal').forEach(el=>observer?observer.observe(el):el.classList.add('visible'));
+ let toastTimer;function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2300)}
+ let tasks=[{text:'Planejar as prioridades',done:false},{text:'Estudar por 25 minutos',done:false},{text:'Fazer uma pausa',done:true}];
+ let focusDuration=25*60,remaining=focusDuration,timerInterval=null,running=false;
+ function fmtSeconds(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+ const panel=$('#demoPanel');
+ const tabs=$$('.demo-tab');
+ function selectPanel(name){tabs.forEach(t=>t.setAttribute('aria-selected',String(t.dataset.panel===name)));renderPanel(name)}
+ function renderPanel(name){
+  if(name==='home'){panel.innerHTML=`<h3 class="panel-title">Bom ter você por aqui.</h3><p class="panel-desc">Uma visão rápida do seu momento.</p><div class="widget-card"><div class="mini-label">AGORA SÃO</div><div class="clock-large" id="demoClock">--:--:--</div><div class="clock-date" id="demoDate"></div></div><div class="dash-row"><div class="widget-card"><div class="mini-label">TAREFAS CONCLUÍDAS</div><div class="mini-value" id="taskCount">0 de 3</div></div><div class="widget-card"><div class="mini-label">PRÓXIMO PASSO</div><div class="mini-value" style="font-size:1rem">Escolha uma prioridade</div></div></div>`;const tick=()=>{const c=$('#demoClock');if(c){const d=new Date();c.textContent=d.toLocaleTimeString('pt-BR');$('#demoDate').textContent=d.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'})}};tick();if(window.demoClockInterval)clearInterval(window.demoClockInterval);window.demoClockInterval=setInterval(tick,1000);updateTaskCount();return}
+  if(window.demoClockInterval){clearInterval(window.demoClockInterval);window.demoClockInterval=null}
+  if(name==='tasks'){panel.innerHTML=`<h3 class="panel-title">Uma coisa de cada vez.</h3><p class="panel-desc">Marque o que já concluiu ou adicione uma tarefa sua.</p><div class="task-list" id="taskList"></div><form class="task-add" id="taskForm"><input class="field" id="newTask" maxlength="90" placeholder="Adicionar uma tarefa…" aria-label="Nova tarefa" required><button type="submit">Adicionar</button></form>`;renderTasks();$('#taskForm').addEventListener('submit',e=>{e.preventDefault();const input=$('#newTask'),text=input.value.trim();if(!text)return;tasks.push({text,done:false});renderTasks();input.value='';input.focus()});return}
+  if(name==='focus'){panel.innerHTML=`<h3 class="panel-title">Crie espaço para se concentrar.</h3><p class="panel-desc">Temporizador demonstrativo. Continue no seu ritmo.</p><div class="widget-card"><div class="timer-settings"><label for="focusMinutes">Duração (min)</label><input class="field" id="focusMinutes" type="number" min="1" max="180" value="${Math.round(focusDuration/60)}" ${running?'disabled':''}></div><div class="timer-face" id="timerFace">${fmtSeconds(remaining)}</div><div class="timer-controls"><button class="btn primary" id="timerStart">${running?'Pausar':'Iniciar foco'}</button><button class="btn" id="timerReset">Reiniciar</button></div><p class="concept-note" style="text-align:center">O temporizador funciona enquanto esta página estiver aberta.</p></div>`;$('#timerStart').addEventListener('click',()=>{if(running){stopTimer()}else{const mins=Number($('#focusMinutes').value);if(!Number.isFinite(mins)||mins<1||mins>180){toast('Escolha de 1 a 180 minutos.');return}if(remaining<=0)remaining=focusDuration;focusDuration=mins*60;if(remaining===0)remaining=focusDuration;startTimer()}renderPanel('focus')});$('#timerReset').addEventListener('click',()=>{stopTimer();const mins=Number($('#focusMinutes').value);if(Number.isFinite(mins)&&mins>=1&&mins<=180)focusDuration=mins*60;remaining=focusDuration;renderPanel('focus')});return}
+  if(name==='calc'){panel.innerHTML=`<h3 class="panel-title">Calculadora</h3><p class="panel-desc">Cálculos rápidos, direto na demonstração.</p><div class="calc"><input class="calc-display" id="calcDisplay" value="0" aria-label="Visor da calculadora" readonly><div class="calc-grid">${['C','±','%','÷','7','8','9','×','4','5','6','−','1','2','3','+','⌫','0','.','='].map(k=>`<button type="button" class="${['÷','×','−','+','=','%'].includes(k)?'op':''}" data-key="${k}" aria-label="${({'⌫':'Apagar','±':'Trocar sinal','÷':'Dividir','×':'Multiplicar','−':'Subtrair','+':'Somar','=':'Resultado','C':'Limpar'})[k]||k}">${k}</button>`).join('')}</div></div>`;wireCalc();return}
+  if(name==='themes'){panel.innerHTML=`<h3 class="panel-title">Uma interface, seu estilo.</h3><p class="panel-desc">Escolha uma paleta para personalizar esta demonstração.</p><div class="theme-options"><button class="theme-swatch" data-theme-choice="blue" aria-label="Tema azul" aria-pressed="${document.body.dataset.theme==='blue'}"></button><button class="theme-swatch violet" data-theme-choice="violet" aria-label="Tema violeta" aria-pressed="${document.body.dataset.theme==='violet'}"></button><button class="theme-swatch midnight" data-theme-choice="midnight" aria-label="Tema meia-noite" aria-pressed="${document.body.dataset.theme==='midnight'}"></button></div><div class="widget-card"><div class="mini-label">PRÉVIA DO TEMA</div><div class="mini-value">LiquidOS / Personalização</div><p class="muted" style="font-size:.88rem;margin-bottom:0">A paleta muda a atmosfera visual do site inteiro.</p></div>`;$$('[data-theme-choice]',panel).forEach(b=>b.addEventListener('click',()=>{document.body.dataset.theme=b.dataset.themeChoice;$$('[data-theme-choice]',panel).forEach(x=>x.setAttribute('aria-pressed',String(x===b)));toast('Tema atualizado.')}));return}
+ }
+ function renderTasks(){const list=$('#taskList');if(!list)return;list.innerHTML=tasks.map((t,i)=>`<label class="task-row ${t.done?'done':''}"><input type="checkbox" data-task="${i}" ${t.done?'checked':''}><span>${escapeHtml(t.text)}</span></label>`).join('');$$('[data-task]',list).forEach(c=>c.addEventListener('change',()=>{tasks[Number(c.dataset.task)].done=c.checked;renderTasks()}))}
+ function updateTaskCount(){const el=$('#taskCount');if(el)el.textContent=`${tasks.filter(t=>t.done).length} de ${tasks.length}`}
+ function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+ function startTimer(){running=true;timerInterval=setInterval(()=>{if(remaining>0){remaining--;const face=$('#timerFace');if(face)face.textContent=fmtSeconds(remaining)}else{stopTimer();toast('Sessão de foco concluída. Bom trabalho!');if($('#demoPanel'))renderPanel('focus')}},1000)}
+ function stopTimer(){running=false;if(timerInterval)clearInterval(timerInterval);timerInterval=null}
+ function wireCalc(){let display='0',stored=null,op=null,resetNext=false;const out=$('#calcDisplay');const set=v=>{display=String(v).slice(0,16);out.value=display};$$('[data-key]',panel).forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.key;if(/^\d$/.test(k)){set(resetNext||display==='0'?k:display+k);resetNext=false;return}if(k==='.'){if(resetNext){set('0.');resetNext=false}else if(!display.includes('.'))set(display+'.');return}if(k==='C'){set('0');stored=null;op=null;resetNext=false;return}if(k==='⌫'){set(display.length>1?display.slice(0,-1):'0');return}if(k==='±'){set(String(-Number(display)));return}if(k==='%'){set(String(Number(display)/100));return}if(k==='='){if(op&&stored!==null){const a=stored,c=Number(display);let r=op==='+'?a+c:op==='−'?a-c:op==='×'?a*c:op==='÷'?(c===0?NaN:a/c):c;set(Number.isFinite(r)?Number(r.toPrecision(10)):'Erro');stored=null;op=null;resetNext=true}return}if(['+','−','×','÷'].includes(k)){stored=Number(display);op=k;resetNext=true}}))}
+ tabs.forEach(t=>t.addEventListener('click',()=>selectPanel(t.dataset.panel)));
+ $$('#models [data-compare]').forEach(b=>b.addEventListener('click',()=>{const name=b.dataset.compare==='one'?'ORBIT One':'ORBIT Plus';toast(`${name}: comparação destacada abaixo.`);$('#comparison').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});$('#comparison').style.borderColor='rgba(117,229,255,.65)';setTimeout(()=>$('#comparison').style.borderColor='',1800)}));
+ // Movimento de perspectiva somente com mouse/trackpad; telas touch não dependem dele.
+ const heroStage=$('.hero-device-stage');
+ if(heroStage && window.matchMedia('(hover:hover) and (pointer:fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  heroStage.addEventListener('pointermove',e=>{const r=heroStage.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;heroStage.style.setProperty('--pointer-x',`${x*7}deg`);heroStage.style.setProperty('--parallax-x',`${x*10}px`);heroStage.style.setProperty('--parallax-y',`${y*8}px`)});
+  heroStage.addEventListener('pointerleave',()=>{heroStage.style.setProperty('--pointer-x','0deg');heroStage.style.setProperty('--parallax-x','0px');heroStage.style.setProperty('--parallax-y','0px')});
+ }
+ // Fecha o menu ao tocar fora dele e ao escolher um destino, especialmente em celulares.
+ document.addEventListener('click',e=>{if(nav.classList.contains('open')&&!nav.contains(e.target)&&!menu.contains(e.target)){nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Abrir menu');menu.textContent='☰'}});
+ // Realça no menu a seção que está visível durante a navegação.
+ if('IntersectionObserver' in window){const sectionObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){$$('#navlinks a').forEach(a=>{const active=a.getAttribute('href')===`#${entry.target.id}`;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}}),{rootMargin:'-25% 0px -60% 0px',threshold:0});$$('main section[id]').forEach(section=>sectionObserver.observe(section))}
+ selectPanel('home');
+})();
+</script>
+</body>
+</html>
